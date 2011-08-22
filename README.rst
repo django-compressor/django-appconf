@@ -115,7 +115,7 @@ Changelog
 ---------
 
 0.2 (2011-08-22)
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
 
 * Added ``configure()`` API to ``AppConf`` class which is called after
   configuring each setting.
