@@ -114,6 +114,11 @@ is provided in the setting instance::
 Changelog
 ---------
 
+0.2.1 (2011-08-22)
+^^^^^^^^^^^^^^^^^^
+
+* Fixed minor issue in ``configure()`` API.
+
 0.2 (2011-08-22)
 ^^^^^^^^^^^^^^^^
 
