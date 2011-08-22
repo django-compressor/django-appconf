@@ -1,7 +1,7 @@
 import sys
 
 # following PEP 386, versiontools will pick it up
-__version__ = (0, 2, 0, "final", 0)
+__version__ = (0, 2, 1, "final", 0)
 
 
 class AppConfOptions(object):
@@ -62,7 +62,7 @@ class AppConfMetaClass(type):
                 if callable(callback):
                     value = callback(value)
                 obj.configured_data[name] = value
-            obj.configured_data = obj.configure()
+            obj.configured_data = obj.configure(obj)
             # Finally, set the setting in the global setting object
             for name, value in obj.configured_data.iteritems():
                 setattr(settings, obj.names[name], value)
