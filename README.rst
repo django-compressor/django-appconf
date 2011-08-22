@@ -6,9 +6,9 @@ defaults of packaged apps gracefully. Say you have an app called ``myapp``
 and want to define a few defaults, and refer to the defaults easily in the
 apps code. Add a ``settings.py`` to your app's models.py::
 
-    import appconf
+    from appconf import AppConf
 
-    class MyAppConf(appconf.AppConf):
+    class MyAppConf(AppConf):
         SETTING_1 = "one"
         SETTING_2 = (
             "two",
@@ -70,10 +70,10 @@ For example, in case a value of a setting depends on other settings
 or other dependencies. The following example sets one setting to a
 different value depending on a global setting::
 
-    import appconf
     from django.conf import settings
+    from appconf import AppConf
 
-    class MyCustomAppConf(appconf.AppConf):
+    class MyCustomAppConf(AppConf):
         ENABLED = True
 
         def configure_enabled(self, value):
@@ -87,3 +87,40 @@ a method ``configure_<lower_setting_name>`` that takes the default
 value as defined in the class attributes as the only parameter.
 The method needs to return the value to be use for the setting in
 question.
+
+After each of the ``_configure`` method have be called, the ``AppConf``
+class will additionally call a main ``configure`` method, which can
+be used to do any further custom configuration handling, e.g. if multiple
+settings depend on each other. For that a ``configured_data`` dictionary
+is provided in the setting instance::
+
+
+    from django.conf import settings
+    from appconf import AppConf
+
+    class MyCustomAppConf(AppConf):
+        ENABLED = True
+        MODE = 'development'
+
+        def configure_enabled(self, value):
+            return value and not self.DEBUG
+
+        def configure(self):
+            mode = self.configured_data['MODE']
+            enabled = self.configured_data['ENABLED']
+            if not enabled and mode != 'development':
+                print "WARNING: app not enabled in %s mode!" % mode
+
+Changelog
+---------
+
+0.2 (2011-08-22)
+^^^^^^^^^^^^^^^^
+
+* Added ``configure()`` API to ``AppConf`` class which is called after
+  configuring each setting.
+
+0.1 (2011-08-22)
+^^^^^^^^^^^^^^^^
+
+* First public release.

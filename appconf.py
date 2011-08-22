@@ -1,7 +1,7 @@
 import sys
 
 # following PEP 386, versiontools will pick it up
-__version__ = (0, 1, 0, "final", 0)
+__version__ = (0, 2, 0, "final", 0)
 
 
 class AppConfOptions(object):
@@ -47,21 +47,25 @@ class AppConfMetaClass(type):
 
         new_class.defaults = dict(defaults)
         new_class.names = dict(names)
+        new_class.configured_data = dict()
         new_class._configure()
 
     def _configure(cls):
         if not cls._meta.configured:
             # the ad-hoc settings class instance used to configure each value
-            obj = cls()
             from django.conf import settings
-            for name, prefixed_name in obj.names.items():
+            obj = cls()
+            for name, prefixed_name in obj.names.iteritems():
                 default_value = obj.defaults.get(prefixed_name)
                 value = getattr(settings, prefixed_name, default_value)
                 callback = getattr(obj, "configure_%s" % name.lower(), None)
                 if callable(callback):
                     value = callback(value)
-                # Finally, set the setting in the global setting object
-                setattr(settings, prefixed_name, value)
+                obj.configured_data[name] = value
+            obj.configured_data = obj.configure()
+            # Finally, set the setting in the global setting object
+            for name, value in obj.configured_data.iteritems():
+                setattr(settings, obj.names[name], value)
             cls._meta.configured = True
 
 
@@ -90,3 +94,9 @@ class AppConf(object):
 
     def __setattr__(self, name, value):
         setattr(self.__dict__['_holder'], name, value)
+
+    def configure(self):
+        """
+        Hook for doing any extra configuration.
+        """
+        return self.configured_data
