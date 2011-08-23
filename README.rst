@@ -53,7 +53,7 @@ code is perfectly valid::
         print "yay, myapp is installed!"
 
 In case you want to set some settings ad-hoc, you can simply pass
-the value when instanciating the ``AppConf`` class::
+the value when instantiating the ``AppConf`` class::
 
     from myapp.models import MyAppConf
 
