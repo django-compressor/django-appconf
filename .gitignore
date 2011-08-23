@@ -1,0 +1,10 @@
+build
+dist
+MANIFEST
+*.pyc
+*.egg-info
+.tox/
+*.egg
+docs/_build/
+tests/.coverage
+tests/.tox
