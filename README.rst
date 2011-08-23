@@ -114,6 +114,15 @@ is provided in the setting instance::
 Changelog
 ---------
 
+0.3 (2011-08-23)
+^^^^^^^^^^^^^^^^
+
+* Added tests with 100% coverage.
+
+* Added ability to subclass ``Meta`` classes.
+
+* Fixed various bugs with subclassing and configuration in subclasses.
+
 0.2.2 (2011-08-22)
 ^^^^^^^^^^^^^^^^^^
 
