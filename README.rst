@@ -4,7 +4,7 @@ django-appconf
 An app configuration object to be used for handling configuration
 defaults of packaged apps gracefully. Say you have an app called ``myapp``
 and want to define a few defaults, and refer to the defaults easily in the
-apps code. Add a ``settings.py`` to your app's models.py::
+apps code. Add a ``settings.py`` to your app's folder, alongside models.py::
 
     from appconf import AppConf
 
