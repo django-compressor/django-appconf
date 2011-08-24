@@ -6,13 +6,13 @@ __version__ = (0, 3, 0, "final", 0)
 
 class AppConfOptions(object):
 
-    def __init__(self, meta, app_label=None):
-        self.app_label = app_label
+    def __init__(self, meta, prefix=None):
+        self.prefix = prefix
 
     def prefixed_name(self, name):
-        if name.startswith(self.app_label.upper()):
+        if name.startswith(self.prefix.upper()):
             return name
-        return "%s_%s" % (self.app_label.upper(), name.upper())
+        return "%s_%s" % (self.prefix.upper(), name.upper())
 
     def contribute_to_class(self, cls, name):
         cls._meta = self
@@ -38,14 +38,14 @@ class AppConfMetaClass(type):
             attr_meta = type('Meta', (object,), {})
             meta = getattr(new_class, 'Meta', None)
 
-        app_label = getattr(meta, 'app_label', None)
-        if app_label is None:
-            # Figure out the app_label by looking one level up.
+        prefix = getattr(meta, 'prefix', getattr(meta, 'app_label', None))
+        if prefix is None:
+            # Figure out the prefix by looking one level up.
             # For 'django.contrib.sites.models', this would be 'sites'.
             model_module = sys.modules[new_class.__module__]
-            app_label = model_module.__name__.split('.')[-2]
+            prefix = model_module.__name__.split('.')[-2]
 
-        new_class.add_to_class('_meta', AppConfOptions(meta, app_label))
+        new_class.add_to_class('_meta', AppConfOptions(meta, prefix))
         new_class.add_to_class('Meta', attr_meta)
 
         for parent in parents[::-1]:

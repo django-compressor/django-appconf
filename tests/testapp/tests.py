@@ -8,7 +8,7 @@ from testapp.models import (TestConf, PrefixConf, YetAnotherPrefixConf,
 class TestConfTests(TestCase):
 
     def test_basic(self):
-        self.assertEquals(TestConf._meta.app_label, 'testapp')
+        self.assertEquals(TestConf._meta.prefix, 'testapp')
 
     def test_simple(self):
         self.assertTrue(hasattr(settings, 'TESTAPP_SIMPLE_VALUE'))
@@ -40,8 +40,8 @@ class TestConfTests(TestCase):
 
 class PrefixConfTests(TestCase):
 
-    def test_app_label(self):
-        self.assertEquals(PrefixConf._meta.app_label, 'prefix')
+    def test_prefix(self):
+        self.assertEquals(PrefixConf._meta.prefix, 'prefix')
 
     def test_simple(self):
         self.assertTrue(hasattr(settings, 'PREFIX_SIMPLE_VALUE'))
@@ -58,8 +58,8 @@ class PrefixConfTests(TestCase):
 
 class YetAnotherPrefixConfTests(TestCase):
 
-    def test_app_label(self):
-        self.assertEquals(YetAnotherPrefixConf._meta.app_label,
+    def test_prefix(self):
+        self.assertEquals(YetAnotherPrefixConf._meta.prefix,
                           'yetanother_prefix')
 
     def test_simple(self):
@@ -82,8 +82,8 @@ class YetAnotherPrefixConfTests(TestCase):
 
 class SeparateConfTests(TestCase):
 
-    def test_app_label(self):
-        self.assertEquals(SeparateConf._meta.app_label, 'prefix')
+    def test_prefix(self):
+        self.assertEquals(SeparateConf._meta.prefix, 'prefix')
 
     def test_simple(self):
         self.assertTrue(hasattr(settings, 'PREFIX_SEPARATE_VALUE'))

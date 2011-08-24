@@ -17,7 +17,7 @@ class TestConf(AppConf):
 class PrefixConf(TestConf):
 
     class Meta:
-        app_label = 'prefix'
+        prefix = 'prefix'
 
 
 class YetAnotherPrefixConf(PrefixConf):
@@ -25,7 +25,7 @@ class YetAnotherPrefixConf(PrefixConf):
     SIMPLE_VALUE = False
 
     class Meta:
-        app_label = 'yetanother_prefix'
+        prefix = 'yetanother_prefix'
 
 
 class SeparateConf(AppConf):
