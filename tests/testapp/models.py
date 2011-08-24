@@ -1,5 +1,12 @@
 from appconf import AppConf
 
+
+class CustomHolder(object):
+    pass
+
+custom_holder = CustomHolder()
+
+
 class TestConf(AppConf):
 
     SIMPLE_VALUE = True
@@ -35,3 +42,11 @@ class SeparateConf(AppConf):
     class Meta(PrefixConf.Meta):
         pass
 
+
+class CustomHolderConf(AppConf):
+
+    SIMPLE_VALUE = True
+
+    class Meta:
+        holder = 'testapp.models.custom_holder'  # instead of django.conf.settings
+        prefix = 'custom_holder'

@@ -8,6 +8,8 @@ class AppConfOptions(object):
 
     def __init__(self, meta, prefix=None):
         self.prefix = prefix
+        self.holder_path = getattr(meta, 'holder', 'django.conf.settings')
+        self.holder = import_attribute(self.holder_path)
 
     def prefixed_name(self, name):
         if name.startswith(self.prefix.upper()):
@@ -56,11 +58,11 @@ class AppConfMetaClass(type):
         for name in filter(lambda name: name == name.upper(), attrs):
             prefixed_name = new_class._meta.prefixed_name(name)
             new_class._meta.names[name] = prefixed_name
-            new_class._meta.defaults[prefixed_name] = attrs.pop(name)
+            new_class._meta.defaults[prefixed_name] = attrs.get(name)
 
         # Add all attributes to the class.
-        for obj_name, obj in attrs.items():
-            new_class.add_to_class(obj_name, obj)
+        for name, value in attrs.items():
+            new_class.add_to_class(name, value)
 
         return new_class._configure()
 
@@ -71,13 +73,12 @@ class AppConfMetaClass(type):
             setattr(cls, name, value)
 
     def _configure(cls):
-        from django.conf import settings
         # the ad-hoc settings class instance used to configure each value
         obj = cls()
         obj.configured_data = dict()
         for name, prefixed_name in obj._meta.names.iteritems():
             default_value = obj._meta.defaults.get(prefixed_name)
-            value = getattr(settings, prefixed_name, default_value)
+            value = getattr(obj._meta.holder, prefixed_name, default_value)
             callback = getattr(obj, "configure_%s" % name.lower(), None)
             if callable(callback):
                 value = callback(value)
@@ -87,9 +88,29 @@ class AppConfMetaClass(type):
         # Finally, set the setting in the global setting object
         for name, value in obj.configured_data.iteritems():
             prefixed_name = obj._meta.prefixed_name(name)
-            setattr(settings, prefixed_name, value)
-
+            setattr(obj._meta.holder, prefixed_name, value)
         return cls
+
+
+def import_attribute(import_path, exception_handler=None):
+    from django.utils.importlib import import_module
+    module_name, object_name = import_path.rsplit('.', 1)
+    try:
+        module = import_module(module_name)
+    except:  # pragma: no cover
+        if callable(exception_handler):
+            exctype, excvalue, tb = sys.exc_info()
+            return exception_handler(import_path, exctype, excvalue, tb)
+        else:
+            raise
+    try:
+        return getattr(module, object_name)
+    except:  # pragma: no cover
+        if callable(exception_handler):
+            exctype, excvalue, tb = sys.exc_info()
+            return exception_handler(import_path, exctype, excvalue, tb)
+        else:
+            raise
 
 
 class AppConf(object):
@@ -100,13 +121,11 @@ class AppConf(object):
     __metaclass__ = AppConfMetaClass
 
     def __init__(self, **kwargs):
-        from django.conf import settings
-        self._holder = settings
         for name, value in kwargs.iteritems():
-            setattr(self, self._meta.prefixed_name(name), value)
+            setattr(self, name, value)
 
     def __dir__(self):
-        return sorted(list(set(dir(self._holder))))
+        return sorted(list(set(self._meta.names.keys())))
 
     # For Python < 2.6:
     @property
@@ -114,11 +133,13 @@ class AppConf(object):
         return self.__dir__()
 
     def __getattr__(self, name):
-        return getattr(self._holder, name)
+        raise AttributeError("%s not found. Use '%s' instead." %
+                             (name, self._meta.holder_path))
 
     def __setattr__(self, name, value):
         if name == name.upper():
-            return setattr(self._holder, name, value)
+            setattr(self._meta.holder,
+                    self._meta.prefixed_name(name), value)
         object.__setattr__(self, name, value)
 
     def configure(self):

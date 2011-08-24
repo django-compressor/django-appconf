@@ -2,7 +2,7 @@ from django.conf import settings
 from django.test import TestCase
 
 from testapp.models import (TestConf, PrefixConf, YetAnotherPrefixConf,
-                            SeparateConf)
+                            SeparateConf, CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -24,8 +24,9 @@ class TestConfTests(TestCase):
 
     def test_init_kwargs(self):
         custom_conf = TestConf(CUSTOM_VALUE='custom')
-        self.assertEquals(custom_conf.TESTAPP_CUSTOM_VALUE, 'custom')
+        self.assertEquals(custom_conf.CUSTOM_VALUE, 'custom')
         self.assertEquals(settings.TESTAPP_CUSTOM_VALUE, 'custom')
+        self.assertRaises(AttributeError, lambda: custom_conf.TESTAPP_CUSTOM_VALUE)
 
     def test_init_kwargs_with_prefix(self):
         custom_conf = TestConf(TESTAPP_CUSTOM_VALUE2='custom2')
@@ -33,9 +34,18 @@ class TestConfTests(TestCase):
         self.assertEquals(settings.TESTAPP_CUSTOM_VALUE2, 'custom2')
 
     def test_dir_members(self):
-        settings = TestConf()
-        self.assertTrue('TESTAPP_SIMPLE_VALUE' in dir(settings), dir(settings))
+        custom_conf = TestConf()
+        self.assertTrue('TESTAPP_SIMPLE_VALUE' in dir(settings))
         self.assertTrue('TESTAPP_SIMPLE_VALUE' in settings.__members__)
+        self.assertTrue('SIMPLE_VALUE' in dir(custom_conf))
+        self.assertTrue('SIMPLE_VALUE' in custom_conf.__members__)
+        self.assertFalse('TESTAPP_SIMPLE_VALUE' in dir(custom_conf))
+        self.assertFalse('TESTAPP_SIMPLE_VALUE' in custom_conf.__members__)
+
+    def test_custom_holder(self):
+        custom_conf = CustomHolderConf()
+        self.assertTrue(hasattr(custom_holder, 'CUSTOM_HOLDER_SIMPLE_VALUE'))
+        self.assertEquals(custom_holder.CUSTOM_HOLDER_SIMPLE_VALUE, True)
 
 
 class PrefixConfTests(TestCase):
