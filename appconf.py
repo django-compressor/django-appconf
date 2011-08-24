@@ -10,6 +10,7 @@ class AppConfOptions(object):
         self.prefix = prefix
         self.holder_path = getattr(meta, 'holder', 'django.conf.settings')
         self.holder = import_attribute(self.holder_path)
+        self.proxy = getattr(meta, 'proxy', False)
 
     def prefixed_name(self, name):
         if name.startswith(self.prefix.upper()):
@@ -133,6 +134,8 @@ class AppConf(object):
         return self.__dir__()
 
     def __getattr__(self, name):
+        if self._meta.proxy:
+            return getattr(self._meta.holder, name)
         raise AttributeError("%s not found. Use '%s' instead." %
                              (name, self._meta.holder_path))
 

@@ -2,7 +2,8 @@ from django.conf import settings
 from django.test import TestCase
 
 from testapp.models import (TestConf, PrefixConf, YetAnotherPrefixConf,
-                            SeparateConf, CustomHolderConf, custom_holder)
+                            SeparateConf, ProxyConf, CustomHolderConf,
+                            custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -32,6 +33,13 @@ class TestConfTests(TestCase):
         custom_conf = TestConf(TESTAPP_CUSTOM_VALUE2='custom2')
         self.assertEquals(custom_conf.TESTAPP_CUSTOM_VALUE2, 'custom2')
         self.assertEquals(settings.TESTAPP_CUSTOM_VALUE2, 'custom2')
+
+    def test_proxy(self):
+        custom_conf = ProxyConf(CUSTOM_VALUE3='custom3')
+        self.assertEquals(custom_conf.CUSTOM_VALUE3, 'custom3')
+        self.assertEquals(settings.TESTAPP_CUSTOM_VALUE3, 'custom3')
+        self.assertEquals(custom_conf.TESTAPP_CUSTOM_VALUE3, 'custom3')
+        self.assertTrue('tests.testapp' in custom_conf.INSTALLED_APPS)
 
     def test_dir_members(self):
         custom_conf = TestConf()

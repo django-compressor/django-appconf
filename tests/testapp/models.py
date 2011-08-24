@@ -43,6 +43,12 @@ class SeparateConf(AppConf):
         pass
 
 
+class ProxyConf(TestConf):
+
+    class Meta:
+        proxy = True
+
+
 class CustomHolderConf(AppConf):
 
     SIMPLE_VALUE = True
