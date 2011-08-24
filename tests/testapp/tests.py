@@ -28,6 +28,10 @@ class TestConfTests(TestCase):
         self.assertEquals(custom_conf.CUSTOM_VALUE, 'custom')
         self.assertEquals(settings.TESTAPP_CUSTOM_VALUE, 'custom')
         self.assertRaises(AttributeError, lambda: custom_conf.TESTAPP_CUSTOM_VALUE)
+        custom_conf.CUSTOM_VALUE_SETATTR = 'custom'
+        self.assertEquals(settings.TESTAPP_CUSTOM_VALUE_SETATTR, 'custom')
+        custom_conf.custom_value_lowercase = 'custom'
+        self.assertRaises(AttributeError, lambda: settings.custom_value_lowercase)
 
     def test_init_kwargs_with_prefix(self):
         custom_conf = TestConf(TESTAPP_CUSTOM_VALUE2='custom2')
@@ -54,6 +58,10 @@ class TestConfTests(TestCase):
         custom_conf = CustomHolderConf()
         self.assertTrue(hasattr(custom_holder, 'CUSTOM_HOLDER_SIMPLE_VALUE'))
         self.assertEquals(custom_holder.CUSTOM_HOLDER_SIMPLE_VALUE, True)
+
+    def test_subclass_configured_data(self):
+        self.assertTrue('TESTAPP_CONFIGURE_METHOD_VALUE2' in dir(settings))
+        self.assertEquals(settings.TESTAPP_CONFIGURE_METHOD_VALUE2, False)
 
 
 class PrefixConfTests(TestCase):

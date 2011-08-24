@@ -43,6 +43,13 @@ class SeparateConf(AppConf):
         pass
 
 
+class SubclassConf(TestConf):
+
+    def configure(self):
+        self.configured_data['CONFIGURE_METHOD_VALUE2'] = False
+        return self.configured_data
+
+
 class ProxyConf(TestConf):
 
     class Meta:

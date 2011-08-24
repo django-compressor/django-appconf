@@ -11,6 +11,7 @@ class AppConfOptions(object):
         self.holder_path = getattr(meta, 'holder', 'django.conf.settings')
         self.holder = import_attribute(self.holder_path)
         self.proxy = getattr(meta, 'proxy', False)
+        self.configured_data = {}
 
     def prefixed_name(self, name):
         if name.startswith(self.prefix.upper()):
@@ -55,17 +56,23 @@ class AppConfMetaClass(type):
             if hasattr(parent, '_meta'):
                 new_class._meta.names.update(parent._meta.names)
                 new_class._meta.defaults.update(parent._meta.defaults)
+                new_class._meta.configured_data.update(parent._meta.configured_data)
 
         for name in filter(lambda name: name == name.upper(), attrs):
             prefixed_name = new_class._meta.prefixed_name(name)
             new_class._meta.names[name] = prefixed_name
-            new_class._meta.defaults[prefixed_name] = attrs.get(name)
+            new_class._meta.defaults[prefixed_name] = attrs.pop(name)
 
         # Add all attributes to the class.
         for name, value in attrs.items():
             new_class.add_to_class(name, value)
 
-        return new_class._configure()
+        new_class._configure()
+        for name, value in new_class._meta.configured_data.iteritems():
+            prefixed_name = new_class._meta.prefixed_name(name)
+            setattr(new_class._meta.holder, prefixed_name, value)
+            new_class.add_to_class(name, value)
+        return new_class
 
     def add_to_class(cls, name, value):
         if hasattr(value, 'contribute_to_class'):
@@ -76,21 +83,14 @@ class AppConfMetaClass(type):
     def _configure(cls):
         # the ad-hoc settings class instance used to configure each value
         obj = cls()
-        obj.configured_data = dict()
         for name, prefixed_name in obj._meta.names.iteritems():
             default_value = obj._meta.defaults.get(prefixed_name)
             value = getattr(obj._meta.holder, prefixed_name, default_value)
             callback = getattr(obj, "configure_%s" % name.lower(), None)
             if callable(callback):
                 value = callback(value)
-            obj.configured_data[name] = value
-        obj.configured_data = obj.configure()
-
-        # Finally, set the setting in the global setting object
-        for name, value in obj.configured_data.iteritems():
-            prefixed_name = obj._meta.prefixed_name(name)
-            setattr(obj._meta.holder, prefixed_name, value)
-        return cls
+            cls._meta.configured_data[name] = value
+        cls._meta.configured_data = obj.configure()
 
 
 def import_attribute(import_path, exception_handler=None):
@@ -127,6 +127,11 @@ class AppConf(object):
 
     def __dir__(self):
         return sorted(list(set(self._meta.names.keys())))
+
+    @property
+    # For instance access..
+    def configured_data(self):
+        return self._meta.configured_data
 
     # For Python < 2.6:
     @property
