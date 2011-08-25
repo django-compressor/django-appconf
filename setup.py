@@ -13,10 +13,10 @@ setup(
     author='Jannis Leidel',
     author_email='jannis@leidel.info',
     license = 'BSD',
-    url='https://github.com/jezdez/django-appconf/',
+    url='http://django-appconf.readthedocs.org/',
     py_modules=['appconf'],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
@@ -29,6 +29,6 @@ setup(
         'Topic :: Utilities',
     ],
     setup_requires=[
-        'versiontools >= 1.5',
+        'versiontools >= 1.6',
     ],
 )
