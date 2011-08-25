@@ -7,15 +7,16 @@ read = lambda filepath: codecs.open(filepath, 'r', 'utf-8').read()
 setup(
     name='django-appconf',
     version=":versiontools:appconf:",
-    description='An app configuration object to be used for handling '
-                'configuration defaults of packaged apps gracefully.',
+    description='A helper class for handling configuration defaults '
+                'of packaged apps gracefully.',
     long_description=read(path.join(path.dirname(__file__), 'README.rst')),
     author='Jannis Leidel',
     author_email='jannis@leidel.info',
-    url='https://github.com/jezdez/django-appconf/',
+    license = 'BSD',
+    url='http://django-appconf.readthedocs.org/',
     py_modules=['appconf'],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
@@ -28,6 +29,6 @@ setup(
         'Topic :: Utilities',
     ],
     setup_requires=[
-        'versiontools >= 1.5',
+        'versiontools >= 1.6',
     ],
 )
