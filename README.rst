@@ -43,8 +43,8 @@ an inner ``Meta`` class::
             "two",
         )
 
-    class Meta:
-        prefix = 'acme'
+        class Meta:
+            prefix = 'acme'
 
 The ``MyAppConf`` class will automatically look at Django's global settings
 to determine if you've overridden it. For example, adding this to your site's
@@ -64,6 +64,6 @@ In case you want to use a different settings object instead of the default
             "two",
         )
 
-    class Meta:
-        prefix = 'acme'
-        holder = 'acme.conf.settings'
+        class Meta:
+            prefix = 'acme'
+            holder = 'acme.conf.settings'

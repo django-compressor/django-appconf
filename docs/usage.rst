@@ -27,8 +27,8 @@ attribute of the inner ``Meta`` class to ``True``::
             "two",
         )
 
-    class Meta:
-        proxy = True
+        class Meta:
+            proxy = True
 
     myapp_settings = MyAppConf()
 
