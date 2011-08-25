@@ -128,8 +128,8 @@ class AppConf(object):
     def __dir__(self):
         return sorted(list(set(self._meta.names.keys())))
 
-    @property
     # For instance access..
+    @property
     def configured_data(self):
         return self._meta.configured_data
 
@@ -152,6 +152,8 @@ class AppConf(object):
 
     def configure(self):
         """
-        Hook for doing any extra configuration.
+        Hook for doing any extra configuration, returning a dictionary
+        containing the configured data.
+
         """
         return self.configured_data
