@@ -37,20 +37,20 @@ an inner ``Meta`` class::
 
     from appconf import AppConf
 
-    class MyAppConf(AppConf):
+    class AcmeAppConf(AppConf):
         SETTING_1 = "one"
         SETTING_2 = (
             "two",
         )
 
-    class Meta:
-        prefix = 'acme'
+        class Meta:
+            prefix = 'acme'
 
 The ``MyAppConf`` class will automatically look at Django's global settings
 to determine if you've overridden it. For example, adding this to your site's
 ``settings.py`` would override ``SETTING_1`` of the above ``MyAppConf``::
 
-    MYAPP_SETTING_1 = "uno"
+    ACME_SETTING_1 = "uno"
 
 In case you want to use a different settings object instead of the default
 ``'django.conf.settings'``, set the ``holder`` attribute of the inner
@@ -64,6 +64,6 @@ In case you want to use a different settings object instead of the default
             "two",
         )
 
-    class Meta:
-        prefix = 'acme'
-        holder = 'acme.conf.settings'
+        class Meta:
+            prefix = 'acme'
+            holder = 'acme.conf.settings'

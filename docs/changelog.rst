@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.4.1 (2011-09-09)
+------------------
+
+* Fixed minor issue in installation documentation.
+
 0.4 (2011-08-24)
 ----------------
 
