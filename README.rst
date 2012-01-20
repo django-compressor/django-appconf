@@ -67,3 +67,28 @@ In case you want to use a different settings object instead of the default
         class Meta:
             prefix = 'acme'
             holder = 'acme.conf.settings'
+
+If you ship an ``AppConf`` class with your reusable Django app, it's
+recommended to put it in a ``conf.py`` file of you app package and
+import ``django.conf.settings`` in it, too::
+
+    from django.conf import settings
+    from appconf import AppConf
+
+    class MyAppConf(AppConf):
+        SETTING_1 = "one"
+        SETTING_2 = (
+            "two",
+        )
+
+In the other files of your app you can easily make sure the settings
+are correctly loaded if you import Django's settings object from that
+module, e.g. in your app's ``views.py``::
+
+    from django.http import HttpResponse
+    from myapp.conf import settings
+
+    def index(request):
+        text = 'Setting 1 is: %s' % settings.MYAPP_SETTING_1
+        return HttpResponse(text)
+
