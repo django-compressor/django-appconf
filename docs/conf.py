@@ -217,4 +217,8 @@ man_pages = [
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+intersphinx_mapping = {
+    'python': ('http://python.readthedocs.org/en/v2.7.2/', None),
+    'django': ('http://django.readthedocs.org/en/latest/', None),
+    'celery': ('http://celery.readthedocs.org/en/latest/', None),
+}
