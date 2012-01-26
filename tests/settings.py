@@ -12,8 +12,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.admin',
-    'tests.testapp',
     'django_jenkins',
+    'tests.testapp',
 ]
 
 JENKINS_TASKS = (
