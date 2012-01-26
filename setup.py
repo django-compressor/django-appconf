@@ -14,7 +14,10 @@ setup(
     author_email='jannis@leidel.info',
     license = 'BSD',
     url='http://django-appconf.readthedocs.org/',
-    py_modules=['appconf'],
+    packages=[
+        'appconf',
+        'appconf.tests',
+    ],
     classifiers=[
         "Development Status :: 4 - Beta",
         'Environment :: Web Environment',
