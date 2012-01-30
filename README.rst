@@ -69,7 +69,7 @@ In case you want to use a different settings object instead of the default
             holder = 'acme.conf.settings'
 
 If you ship an ``AppConf`` class with your reusable Django app, it's
-recommended to put it in a ``conf.py`` file of you app package and
+recommended to put it in a ``conf.py`` file of your app package and
 import ``django.conf.settings`` in it, too::
 
     from django.conf import settings
