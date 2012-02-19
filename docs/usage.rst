@@ -43,7 +43,7 @@ simply pass the value when instantiating the ``AppConf`` class::
     myapp_settings = MyAppConf(SETTING_1='something completely different')
 
     if 'different' in myapp_settings.SETTINGS_1:
-        print 'yay, I'm different!'
+        print "yay, I'm different!"
 
 Custom configuration
 --------------------
