@@ -1,6 +1,17 @@
 Changelog
 =========
 
+0.5 (2012-02-20)
+----------------
+
+* Install as a package instead of a module.
+
+* Refactored tests to use `django-jenkins`_ for `enn.io`_'s `CI server`_.
+
+.. _`django-jenkins`: https://github.com/kmmbvnr/django-jenkins
+.. _`enn.io`: http://enn.io
+.. _`CI server`: https://ci.enn.io/job/django-appconf/
+
 0.4.1 (2011-09-09)
 ------------------
 

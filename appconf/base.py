@@ -1,7 +1,5 @@
 import sys
-
-# following PEP 386, versiontools will pick it up
-__version__ = (0, 4, 1, "final", 0)
+from .utils import import_attribute
 
 
 class AppConfOptions(object):
@@ -56,7 +54,8 @@ class AppConfMetaClass(type):
             if hasattr(parent, '_meta'):
                 new_class._meta.names.update(parent._meta.names)
                 new_class._meta.defaults.update(parent._meta.defaults)
-                new_class._meta.configured_data.update(parent._meta.configured_data)
+                new_class._meta.configured_data.update(
+                    parent._meta.configured_data)
 
         for name in filter(lambda name: name == name.upper(), attrs):
             prefixed_name = new_class._meta.prefixed_name(name)
@@ -91,27 +90,6 @@ class AppConfMetaClass(type):
                 value = callback(value)
             cls._meta.configured_data[name] = value
         cls._meta.configured_data = obj.configure()
-
-
-def import_attribute(import_path, exception_handler=None):
-    from django.utils.importlib import import_module
-    module_name, object_name = import_path.rsplit('.', 1)
-    try:
-        module = import_module(module_name)
-    except:  # pragma: no cover
-        if callable(exception_handler):
-            exctype, excvalue, tb = sys.exc_info()
-            return exception_handler(import_path, exctype, excvalue, tb)
-        else:
-            raise
-    try:
-        return getattr(module, object_name)
-    except:  # pragma: no cover
-        if callable(exception_handler):
-            exctype, excvalue, tb = sys.exc_info()
-            return exception_handler(import_path, exctype, excvalue, tb)
-        else:
-            raise
 
 
 class AppConf(object):
