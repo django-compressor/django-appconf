@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.6 (2012-05-XX)
+----------------
+
+* Moved to Travis for the tests: http://travis-ci.org/jezdez/django-appconf
+
 0.5 (2012-02-20)
 ----------------
 
