@@ -56,7 +56,7 @@ class TestConfTests(TestCase):
         self.assertFalse('TESTS_SIMPLE_VALUE' in custom_conf.__members__)
 
     def test_custom_holder(self):
-        custom_conf = CustomHolderConf()
+        CustomHolderConf()
         self.assertTrue(hasattr(custom_holder, 'CUSTOM_HOLDER_SIMPLE_VALUE'))
         self.assertEquals(custom_holder.CUSTOM_HOLDER_SIMPLE_VALUE, True)
 

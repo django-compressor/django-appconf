@@ -6,7 +6,7 @@ from setuptools import setup
 
 def read(*parts):
     file_path = path.join(path.dirname(__file__), *parts)
-    return open(file_path).read()
+    return codecs.open(file_path).read()
 
 
 def find_version(*parts):
