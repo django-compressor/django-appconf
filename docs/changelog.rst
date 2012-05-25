@@ -6,6 +6,8 @@ Changelog
 
 * Moved to Travis for the tests: http://travis-ci.org/jezdez/django-appconf
 
+* Stopped support for Django 1.2.X.
+
 0.5 (2012-02-20)
 ----------------
 
