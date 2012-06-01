@@ -93,3 +93,9 @@ is provided in the setting instance::
             enabled = self.configured_data['ENABLED']
             if not enabled and mode != 'development':
                 print "WARNING: app not enabled in %s mode!" % mode
+            return self.configured_data
+
+.. note::
+
+    Don't forget to return the configured data in your custom ``configure``
+    method if you edit it.
