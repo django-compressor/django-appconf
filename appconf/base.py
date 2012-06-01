@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 import sys
 from .utils import import_attribute
 
@@ -9,6 +10,7 @@ class AppConfOptions(object):
         self.holder_path = getattr(meta, 'holder', 'django.conf.settings')
         self.holder = import_attribute(self.holder_path)
         self.proxy = getattr(meta, 'proxy', False)
+        self.required = getattr(meta, 'required', [])
         self.configured_data = {}
 
     def prefixed_name(self, name):
@@ -71,6 +73,14 @@ class AppConfMetaClass(type):
             prefixed_name = new_class._meta.prefixed_name(name)
             setattr(new_class._meta.holder, prefixed_name, value)
             new_class.add_to_class(name, value)
+
+        # Confirm presence of required settings.
+        for name in new_class._meta.required:
+            prefixed_name = new_class._meta.prefixed_name(name)
+            if not hasattr(new_class._meta.holder, prefixed_name):
+                raise ImproperlyConfigured('The required setting %s is'
+                        ' missing.' % prefixed_name)
+
         return new_class
 
     def add_to_class(cls, name, value):
