@@ -69,6 +69,8 @@ Reference
         A list of settings that must be defined. If any of the specified
         settings are not defined, ``ImproperlyConfigured`` will be raised.
 
+        .. versionadded:: 0.6
+
     .. attribute:: holder
 
         The global settings holder to use when looking for overrides and
