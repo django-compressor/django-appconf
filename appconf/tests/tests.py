@@ -4,8 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from appconf.tests.models import (AppConf, TestConf, PrefixConf,
-    YetAnotherPrefixConf, SeparateConf, ProxyConf, CustomHolderConf,
-    custom_holder)
+                                  YetAnotherPrefixConf, SeparateConf, ProxyConf,
+                                  CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):

@@ -79,7 +79,7 @@ class AppConfMetaClass(type):
             prefixed_name = new_class._meta.prefixed_name(name)
             if not hasattr(new_class._meta.holder, prefixed_name):
                 raise ImproperlyConfigured('The required setting %s is'
-                        ' missing.' % prefixed_name)
+                                           ' missing.' % prefixed_name)
 
         return new_class
 
