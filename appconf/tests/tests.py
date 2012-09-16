@@ -1,9 +1,11 @@
 from __future__ import absolute_import
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from appconf.tests.models import (TestConf, PrefixConf, YetAnotherPrefixConf,
-    SeparateConf, ProxyConf, CustomHolderConf, custom_holder)
+from appconf.tests.models import (AppConf, TestConf, PrefixConf,
+                                  YetAnotherPrefixConf, SeparateConf, ProxyConf,
+                                  CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -114,3 +116,28 @@ class SeparateConfTests(TestCase):
     def test_simple(self):
         self.assertTrue(hasattr(settings, 'PREFIX_SEPARATE_VALUE'))
         self.assertEquals(settings.PREFIX_SEPARATE_VALUE, True)
+
+
+class RequiredSettingsTests(TestCase):
+
+    def create_invalid_conf(self):
+        class RequirementConf(AppConf):
+            class Meta:
+                required = ['NOT_PRESENT']
+
+    def test_value_is_defined(self):
+        class RequirementConf(AppConf):
+            class Meta:
+                holder = 'appconf.tests.models.custom_holder'
+                prefix = 'holder'
+                required = ['VALUE']
+
+    def test_default_is_defined(self):
+        class RequirementConf(AppConf):
+            SIMPLE_VALUE = True
+
+            class Meta:
+                required = ['SIMPLE_VALUE']
+
+    def test_missing(self):
+        self.assertRaises(ImproperlyConfigured, self.create_invalid_conf)
