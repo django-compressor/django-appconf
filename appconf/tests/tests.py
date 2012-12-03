@@ -2,8 +2,9 @@ from __future__ import absolute_import
 from django.conf import settings
 from django.test import TestCase
 
-from appconf.tests.models import (TestConf, PrefixConf, YetAnotherPrefixConf,
-    SeparateConf, ProxyConf, CustomHolderConf, custom_holder)
+from appconf.tests.models import TestConf, PrefixConf, YetAnotherPrefixConf
+from appconf.tests.models import SeparateConf, ProxyConf, CustomHolderConf
+from appconf.tests.models import custom_holder
 
 
 class TestConfTests(TestCase):
