@@ -16,3 +16,4 @@ INSTALLED_APPS = [
 ]
 
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
+SECRET_KEY = 'local'
