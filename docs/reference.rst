@@ -52,6 +52,7 @@ Reference
             class Meta:
                 proxy = False
                 prefix = 'myapp'
+                required = ['SETTING_3', 'SETTING_4']
                 holder = 'django.conf.settings'
 
     .. attribute:: prefix
@@ -62,6 +63,13 @@ Reference
 
         For example, ``acme`` would turn into settings like
         ``ACME_SETTING_1``.
+
+    .. attribute:: required
+
+        A list of settings that must be defined. If any of the specified
+        settings are not defined, ``ImproperlyConfigured`` will be raised.
+
+        .. versionadded:: 0.6
 
     .. attribute:: holder
 
