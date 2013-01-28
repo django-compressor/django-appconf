@@ -50,7 +50,8 @@ class TestConfTests(TestCase):
     def test_dir_members(self):
         custom_conf = TestConf()
         self.assertTrue('TESTS_SIMPLE_VALUE' in dir(settings))
-        self.assertTrue('TESTS_SIMPLE_VALUE' in settings.__members__)
+        if hasattr(settings, '__members__'):  # django 1.5 removed __members__
+            self.assertTrue('TESTS_SIMPLE_VALUE' in settings.__members__)
         self.assertTrue('SIMPLE_VALUE' in dir(custom_conf))
         self.assertTrue('SIMPLE_VALUE' in custom_conf.__members__)
         self.assertFalse('TESTS_SIMPLE_VALUE' in dir(custom_conf))
