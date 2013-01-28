@@ -43,7 +43,7 @@ simply pass the value when instantiating the ``AppConf`` class::
     myapp_settings = MyAppConf(SETTING_1='something completely different')
 
     if 'different' in myapp_settings.SETTINGS_1:
-        print 'yay, I'm different!'
+        print "yay, I'm different!"
 
 Custom configuration
 --------------------
@@ -93,3 +93,9 @@ is provided in the setting instance::
             enabled = self.configured_data['ENABLED']
             if not enabled and mode != 'development':
                 print "WARNING: app not enabled in %s mode!" % mode
+            return self.configured_data
+
+.. note::
+
+    Don't forget to return the configured data in your custom ``configure``
+    method if you edit it.

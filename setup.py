@@ -6,7 +6,7 @@ from setuptools import setup
 
 def read(*parts):
     file_path = path.join(path.dirname(__file__), *parts)
-    return open(file_path).read()
+    return codecs.open(file_path, encoding='utf-8').read()
 
 
 def find_version(*parts):
@@ -32,6 +32,9 @@ setup(
         'appconf',
         'appconf.tests',
     ],
+    install_requires=[
+        'six'
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -43,6 +46,8 @@ setup(
         'Programming Language :: Python :: 2.5',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Topic :: Utilities',
     ],
 )

@@ -2,7 +2,7 @@ from appconf import AppConf
 
 
 class CustomHolder(object):
-    pass
+    HOLDER_VALUE = True
 
 custom_holder = CustomHolder()
 

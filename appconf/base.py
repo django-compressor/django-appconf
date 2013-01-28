@@ -1,4 +1,6 @@
+from django.core.exceptions import ImproperlyConfigured
 import sys
+import six
 from .utils import import_attribute
 
 
@@ -9,6 +11,7 @@ class AppConfOptions(object):
         self.holder_path = getattr(meta, 'holder', 'django.conf.settings')
         self.holder = import_attribute(self.holder_path)
         self.proxy = getattr(meta, 'proxy', False)
+        self.required = getattr(meta, 'required', [])
         self.configured_data = {}
 
     def prefixed_name(self, name):
@@ -57,7 +60,7 @@ class AppConfMetaClass(type):
                 new_class._meta.configured_data.update(
                     parent._meta.configured_data)
 
-        for name in filter(lambda name: name == name.upper(), attrs):
+        for name in filter(str.isupper, list(attrs.keys())):
             prefixed_name = new_class._meta.prefixed_name(name)
             new_class._meta.names[name] = prefixed_name
             new_class._meta.defaults[prefixed_name] = attrs.pop(name)
@@ -67,10 +70,18 @@ class AppConfMetaClass(type):
             new_class.add_to_class(name, value)
 
         new_class._configure()
-        for name, value in new_class._meta.configured_data.iteritems():
+        for name, value in six.iteritems(new_class._meta.configured_data):
             prefixed_name = new_class._meta.prefixed_name(name)
             setattr(new_class._meta.holder, prefixed_name, value)
             new_class.add_to_class(name, value)
+
+        # Confirm presence of required settings.
+        for name in new_class._meta.required:
+            prefixed_name = new_class._meta.prefixed_name(name)
+            if not hasattr(new_class._meta.holder, prefixed_name):
+                raise ImproperlyConfigured('The required setting %s is'
+                                           ' missing.' % prefixed_name)
+
         return new_class
 
     def add_to_class(cls, name, value):
@@ -82,7 +93,7 @@ class AppConfMetaClass(type):
     def _configure(cls):
         # the ad-hoc settings class instance used to configure each value
         obj = cls()
-        for name, prefixed_name in obj._meta.names.iteritems():
+        for name, prefixed_name in six.iteritems(obj._meta.names):
             default_value = obj._meta.defaults.get(prefixed_name)
             value = getattr(obj._meta.holder, prefixed_name, default_value)
             callback = getattr(obj, "configure_%s" % name.lower(), None)
@@ -92,15 +103,14 @@ class AppConfMetaClass(type):
         cls._meta.configured_data = obj.configure()
 
 
-class AppConf(object):
+class AppConf(six.with_metaclass(AppConfMetaClass)):
     """
     An app setting object to be used for handling app setting defaults
     gracefully and providing a nice API for them.
     """
-    __metaclass__ = AppConfMetaClass
 
     def __init__(self, **kwargs):
-        for name, value in kwargs.iteritems():
+        for name, value in six.iteritems(kwargs):
             setattr(self, name, value)
 
     def __dir__(self):

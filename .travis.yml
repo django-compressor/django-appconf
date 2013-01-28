@@ -1,0 +1,35 @@
+language: python
+python:
+  - "2.5"
+  - "2.6"
+  - "2.7"
+  - "3.2"
+before_install:
+  - export PIP_USE_MIRRORS=true
+  - export PIP_INDEX_URL=https://simple.crate.io/
+  - export DJANGO_SETTINGS_MODULE=appconf.test_settings
+install:
+  - pip install -e .
+  - pip install https://github.com/django/django/archive/${DJANGO}.zip#egg=django
+  - pip install -r requirements/tests.txt
+before_script:
+  - flake8 appconf --ignore=E501
+script:
+  - coverage run --branch --source=appconf `which django-admin.py` test appconf
+  - coverage report --omit=appconf/test*
+env:
+  - DJANGO=1.3.5
+  - DJANGO=1.4.3
+  - DJANGO=1.5b2
+branches:
+  except:
+    - master
+
+matrix:
+  exclude:
+    - python: "2.5"
+      env: DJANGO=1.5b2
+    - python: "3.2"
+      env: DJANGO=1.3.5
+    - python: "3.2"
+      env: DJANGO=1.4.3

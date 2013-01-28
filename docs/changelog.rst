@@ -1,6 +1,18 @@
 Changelog
 =========
 
+0.6 (2013-01-28)
+----------------
+
+* Added ``required`` attribute to ``Meta`` to be able to specify which
+  settings are required to be set.
+
+* Moved to Travis for the tests: http://travis-ci.org/jezdez/django-appconf
+
+* Stopped support for Django 1.2.X.
+
+* Introduced support for Python >= 3.2.
+
 0.5 (2012-02-20)
 ----------------
 

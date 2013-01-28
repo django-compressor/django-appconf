@@ -1,10 +1,11 @@
 from __future__ import absolute_import
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from .models import (TestConf, PrefixConf, YetAnotherPrefixConf,
-                     SeparateConf, ProxyConf, CustomHolderConf,
-                     custom_holder)
+from appconf.tests.models import (AppConf, TestConf, PrefixConf,
+                                  YetAnotherPrefixConf, SeparateConf, ProxyConf,
+                                  CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -49,14 +50,15 @@ class TestConfTests(TestCase):
     def test_dir_members(self):
         custom_conf = TestConf()
         self.assertTrue('TESTS_SIMPLE_VALUE' in dir(settings))
-        self.assertTrue('TESTS_SIMPLE_VALUE' in settings.__members__)
+        if hasattr(settings, '__members__'):  # django 1.5 removed __members__
+            self.assertTrue('TESTS_SIMPLE_VALUE' in settings.__members__)
         self.assertTrue('SIMPLE_VALUE' in dir(custom_conf))
         self.assertTrue('SIMPLE_VALUE' in custom_conf.__members__)
         self.assertFalse('TESTS_SIMPLE_VALUE' in dir(custom_conf))
         self.assertFalse('TESTS_SIMPLE_VALUE' in custom_conf.__members__)
 
     def test_custom_holder(self):
-        custom_conf = CustomHolderConf()
+        CustomHolderConf()
         self.assertTrue(hasattr(custom_holder, 'CUSTOM_HOLDER_SIMPLE_VALUE'))
         self.assertEquals(custom_holder.CUSTOM_HOLDER_SIMPLE_VALUE, True)
 
@@ -115,3 +117,28 @@ class SeparateConfTests(TestCase):
     def test_simple(self):
         self.assertTrue(hasattr(settings, 'PREFIX_SEPARATE_VALUE'))
         self.assertEquals(settings.PREFIX_SEPARATE_VALUE, True)
+
+
+class RequiredSettingsTests(TestCase):
+
+    def create_invalid_conf(self):
+        class RequirementConf(AppConf):
+            class Meta:
+                required = ['NOT_PRESENT']
+
+    def test_value_is_defined(self):
+        class RequirementConf(AppConf):
+            class Meta:
+                holder = 'appconf.tests.models.custom_holder'
+                prefix = 'holder'
+                required = ['VALUE']
+
+    def test_default_is_defined(self):
+        class RequirementConf(AppConf):
+            SIMPLE_VALUE = True
+
+            class Meta:
+                required = ['SIMPLE_VALUE']
+
+    def test_missing(self):
+        self.assertRaises(ImproperlyConfigured, self.create_invalid_conf)
