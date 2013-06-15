@@ -1,3 +1,5 @@
+import django
+
 SITE_ID = 1
 
 DATABASES = {
@@ -15,5 +17,7 @@ INSTALLED_APPS = [
     'appconf.tests',
 ]
 
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
+if django.VERSION[:2] < (1, 6):
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+
 SECRET_KEY = 'local'

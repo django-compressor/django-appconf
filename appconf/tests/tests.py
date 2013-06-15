@@ -4,8 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
 from appconf.tests.models import (AppConf, TestConf, PrefixConf,
-                                  YetAnotherPrefixConf, SeparateConf, ProxyConf,
-                                  CustomHolderConf, custom_holder)
+                                  YetAnotherPrefixConf, SeparateConf,
+                                  ProxyConf, CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -29,11 +29,13 @@ class TestConfTests(TestCase):
         custom_conf = TestConf(CUSTOM_VALUE='custom')
         self.assertEquals(custom_conf.CUSTOM_VALUE, 'custom')
         self.assertEquals(settings.TESTS_CUSTOM_VALUE, 'custom')
-        self.assertRaises(AttributeError, lambda: custom_conf.TESTS_CUSTOM_VALUE)
+        self.assertRaises(AttributeError,
+                          lambda: custom_conf.TESTS_CUSTOM_VALUE)
         custom_conf.CUSTOM_VALUE_SETATTR = 'custom'
         self.assertEquals(settings.TESTS_CUSTOM_VALUE_SETATTR, 'custom')
         custom_conf.custom_value_lowercase = 'custom'
-        self.assertRaises(AttributeError, lambda: settings.custom_value_lowercase)
+        self.assertRaises(AttributeError,
+                          lambda: settings.custom_value_lowercase)
 
     def test_init_kwargs_with_prefix(self):
         custom_conf = TestConf(TESTS_CUSTOM_VALUE2='custom2')
