@@ -31,7 +31,7 @@ setup(
     packages=['appconf'],
     install_requires=['six'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
