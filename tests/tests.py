@@ -3,9 +3,9 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 
-from appconf.tests.models import (AppConf, TestConf, PrefixConf,
-                                  YetAnotherPrefixConf, SeparateConf,
-                                  ProxyConf, CustomHolderConf, custom_holder)
+from .models import (AppConf, TestConf, PrefixConf,
+                     YetAnotherPrefixConf, SeparateConf,
+                     ProxyConf, CustomHolderConf, custom_holder)
 
 
 class TestConfTests(TestCase):
@@ -47,7 +47,7 @@ class TestConfTests(TestCase):
         self.assertEqual(custom_conf.CUSTOM_VALUE3, 'custom3')
         self.assertEqual(settings.TESTS_CUSTOM_VALUE3, 'custom3')
         self.assertEqual(custom_conf.TESTS_CUSTOM_VALUE3, 'custom3')
-        self.assertTrue('appconf.tests' in custom_conf.INSTALLED_APPS)
+        self.assertTrue('tests' in custom_conf.INSTALLED_APPS)
 
     def test_dir_members(self):
         custom_conf = TestConf()
@@ -131,7 +131,7 @@ class RequiredSettingsTests(TestCase):
     def test_value_is_defined(self):
         class RequirementConf(AppConf):
             class Meta:
-                holder = 'appconf.tests.models.custom_holder'
+                holder = 'tests.models.custom_holder'
                 prefix = 'holder'
                 required = ['VALUE']
 

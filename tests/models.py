@@ -62,5 +62,5 @@ class CustomHolderConf(AppConf):
 
     class Meta:
         # instead of django.conf.settings
-        holder = 'appconf.tests.models.custom_holder'
+        holder = 'tests.models.custom_holder'
         prefix = 'custom_holder'

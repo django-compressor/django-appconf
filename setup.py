@@ -28,13 +28,8 @@ setup(
     author_email='jannis@leidel.info',
     license='BSD',
     url='http://django-appconf.readthedocs.org/',
-    packages=[
-        'appconf',
-        'appconf.tests',
-    ],
-    install_requires=[
-        'six'
-    ],
+    packages=['appconf'],
+    install_requires=['six'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',

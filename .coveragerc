@@ -1,0 +1,6 @@
+[run]
+source = appconf
+branch = 1
+
+[report]
+omit = *tests*

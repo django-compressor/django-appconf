@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.admin',
-    'appconf.tests',
+    'tests',
 ]
 
 if django.VERSION[:2] < (1, 6):
