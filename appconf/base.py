@@ -1,6 +1,9 @@
-from django.core.exceptions import ImproperlyConfigured
 import sys
+
 import six
+
+from django.core.exceptions import ImproperlyConfigured
+
 from .utils import import_attribute
 
 
@@ -108,7 +111,6 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
     An app setting object to be used for handling app setting defaults
     gracefully and providing a nice API for them.
     """
-
     def __init__(self, **kwargs):
         for name, value in six.iteritems(kwargs):
             setattr(self, name, value)
@@ -142,6 +144,5 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
         """
         Hook for doing any extra configuration, returning a dictionary
         containing the configured data.
-
         """
         return self.configured_data
