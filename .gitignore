@@ -5,3 +5,5 @@ MANIFEST
 *.egg-info
 *.egg
 docs/_build/
+.coverage
+.tox/

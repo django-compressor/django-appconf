@@ -2,7 +2,10 @@ import sys
 
 
 def import_attribute(import_path, exception_handler=None):
-    from django.utils.importlib import import_module
+    try:
+        from importlib import import_module
+    except ImportError:
+        from django.utils.importlib import import_module
     module_name, object_name = import_path.rsplit('.', 1)
     try:
         module = import_module(module_name)

@@ -8,6 +8,16 @@ django-appconf
 A helper class for handling configuration defaults of packaged Django
 apps gracefully.
 
+.. note::
+
+    This app precedes Django's own AppConfig_ classes that act as
+    "objects [to] store metadata for an application" inside Django's
+    app loading mechanism. In other words, they solve a related but
+    different use case than django-appconf and can't easily be used
+    as a replacement. The similarity in name is purely coincidental.
+
+.. _AppConfig: https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig
+
 Overview
 --------
 
