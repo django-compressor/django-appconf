@@ -28,3 +28,6 @@ script:
   - tox
 notifications:
   irc: "irc.freenode.org#django-compressor"
+after_success:
+  - pip install codecov
+  - codecov
