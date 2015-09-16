@@ -1,9 +1,9 @@
 django-appconf
 ==============
 
-.. image:: https://secure.travis-ci.org/jezdez/django-appconf.png?branch=develop
+.. image:: https://secure.travis-ci.org/django-compressor/django-appconf.png?branch=develop
     :alt: Build Status
-    :target: http://travis-ci.org/jezdez/django-appconf
+    :target: http://travis-ci.org/django-compressor/django-appconf
 
 A helper class for handling configuration defaults of packaged Django
 apps gracefully.
