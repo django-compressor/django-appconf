@@ -27,7 +27,9 @@ matrix:
     - env: TOXENV=py34-dj110
     - env: TOXENV=py35-dj110
 install:
-  - pip install tox
+  # Virtualenv < 14 is required to keep the Python 3.2 builds running.
+  - pip install tox "virtualenv<14"
+
 script:
   - tox
 notifications:
