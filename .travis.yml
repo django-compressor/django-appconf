@@ -2,18 +2,12 @@ sudo: false
 language: python
 env:
   - TOXENV=flake8-py27
-  - TOXENV=flake8-py33
-  - TOXENV=py26-dj14
-  - TOXENV=py27-dj14
-  - TOXENV=py27-dj17
+  - TOXENV=flake8-py34
   - TOXENV=py27-dj18
   - TOXENV=py27-dj19
   - TOXENV=py27-dj110
-  - TOXENV=py32-dj17
   - TOXENV=py32-dj18
-  - TOXENV=py33-dj17
   - TOXENV=py33-dj18
-  - TOXENV=py34-dj17
   - TOXENV=py34-dj18
   - TOXENV=py34-dj19
   - TOXENV=py34-dj110
