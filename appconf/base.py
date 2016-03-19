@@ -122,11 +122,6 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
     def configured_data(self):
         return self._meta.configured_data
 
-    # For Python < 2.6:
-    @property
-    def __members__(self):
-        return self.__dir__()
-
     def __getattr__(self, name):
         if self._meta.proxy:
             return getattr(self._meta.holder, name)
