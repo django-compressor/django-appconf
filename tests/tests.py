@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from .models import (AppConf, TestConf, PrefixConf,
                      YetAnotherPrefixConf, SeparateConf,
@@ -63,6 +64,18 @@ class TestConfTests(TestCase):
     def test_subclass_configured_data(self):
         self.assertTrue('TESTS_CONFIGURE_METHOD_VALUE2' in dir(settings))
         self.assertEqual(settings.TESTS_CONFIGURE_METHOD_VALUE2, False)
+
+    # Pair of tests checking override_settings compat.
+    # See:
+    #   https://github.com/django-compressor/django-appconf/issues/29
+    #   https://github.com/django-compressor/django-appconf/issues/30
+    @override_settings(TESTS_SIMPLE_VALUE=False)
+    def test_override_settings_once(self):
+        self.assertEqual(settings.TESTS_SIMPLE_VALUE, False)
+
+    @override_settings(TESTS_SIMPLE_VALUE=False)
+    def test_override_settings_twice(self):
+        self.assertEqual(settings.TESTS_SIMPLE_VALUE, False)
 
 
 class PrefixConfTests(TestCase):
