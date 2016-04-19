@@ -1,30 +1,34 @@
+sudo: false
 language: python
+python:
+  - 3.5
 env:
   - TOXENV=flake8-py27
-  - TOXENV=flake8-py33
-  - TOXENV=py26-dj14
-  - TOXENV=py27-dj14
-  - TOXENV=py26-dj15
-  - TOXENV=py26-dj16
-  - TOXENV=py27-dj15
-  - TOXENV=py27-dj16
-  - TOXENV=py32-dj15
-  - TOXENV=py32-dj16
-  - TOXENV=py33-dj15
-  - TOXENV=py33-dj16
-  - TOXENV=py27-dj17
+  - TOXENV=flake8-py34
   - TOXENV=py27-dj18
   - TOXENV=py27-dj19
-  - TOXENV=py32-dj17
+  - TOXENV=py27-dj110
   - TOXENV=py32-dj18
-  - TOXENV=py32-dj19
-  - TOXENV=py33-dj17
   - TOXENV=py33-dj18
-  - TOXENV=py33-dj19
-  - TOXENV=py34-dj17
   - TOXENV=py34-dj18
   - TOXENV=py34-dj19
+  - TOXENV=py34-dj110
+  - TOXENV=py35-dj19
+  - TOXENV=py35-dj110
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: TOXENV=py27-dj110
+    - env: TOXENV=py34-dj110
+    - env: TOXENV=py35-dj110
 install:
-  - pip install tox
+  # Virtualenv < 14 is required to keep the Python 3.2 builds running.
+  - pip install tox "virtualenv<14"
+
 script:
   - tox
+notifications:
+  irc: "irc.freenode.org#django-compressor"
+after_success:
+  - pip install codecov
+  - codecov

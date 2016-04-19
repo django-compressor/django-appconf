@@ -1,8 +1,7 @@
 import sys
 
-import six
-
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import six
 
 from .utils import import_attribute
 
@@ -122,11 +121,6 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
     @property
     def configured_data(self):
         return self._meta.configured_data
-
-    # For Python < 2.6:
-    @property
-    def __members__(self):
-        return self.__dir__()
 
     def __getattr__(self, name):
         if self._meta.proxy:

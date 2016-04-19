@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.0.2 (2016-04-19)
+------------------
+
+* Minor fixes to test setup
+
+* Update supported Django and Python versions, in line with Django's
+  own supported versions.
+
+
 1.0 (2015-02-15)
 ----------------
 
