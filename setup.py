@@ -27,7 +27,7 @@ setup(
     author='Jannis Leidel',
     author_email='jannis@leidel.info',
     license='BSD',
-    url='http://django-appconf.readthedocs.org/',
+    url='https://django-appconf.readthedocs.io/',
     packages=['appconf'],
     install_requires=[],
     classifiers=[
