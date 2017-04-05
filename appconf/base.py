@@ -115,7 +115,7 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
             setattr(self, name, value)
 
     def __dir__(self):
-        return sorted(list(set(self._meta.names.keys())))
+        return sorted(set(self._meta.names.keys()))
 
     # For instance access..
     @property
