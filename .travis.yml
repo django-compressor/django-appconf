@@ -1,34 +1,79 @@
 sudo: false
 language: python
-python:
-  - 3.5
-env:
-  - TOXENV=flake8-py27
-  - TOXENV=flake8-py34
-  - TOXENV=py27-dj18
-  - TOXENV=py27-dj19
-  - TOXENV=py27-dj110
-  - TOXENV=py32-dj18
-  - TOXENV=py33-dj18
-  - TOXENV=py34-dj18
-  - TOXENV=py34-dj19
-  - TOXENV=py34-dj110
-  - TOXENV=py35-dj19
-  - TOXENV=py35-dj110
+
 matrix:
   fast_finish: true
   allow_failures:
-    - env: TOXENV=py27-dj110
-    - env: TOXENV=py34-dj110
-    - env: TOXENV=py35-dj110
+    - env: TOXENV=py34-djmaster
+    - env: TOXENV=py35-djmaster
+    - env: TOXENV=py36-djmaster
+  include:
+    # Python version is just for the look on travis.
+    - python: 2.7
+      env: TOXENV=flake8-py27
+
+    - python: 3.4
+      env: TOXENV=flake8-py34
+
+    - python: 2.7
+      env: TOXENV=py27-dj18
+
+    - python: 2.7
+      env: TOXENV=py27-dj19
+
+    - python: 2.7
+      env: TOXENV=py27-dj110
+
+    - python: 2.7
+      env: TOXENV=py27-dj111
+
+    - python: 3.3
+      env: TOXENV=py33-dj18
+
+    - python: 3.4
+      env: TOXENV=py34-dj18
+
+    - python: 3.4
+      env: TOXENV=py34-dj19
+
+    - python: 3.4
+      env: TOXENV=py34-dj110
+
+    - python: 3.4
+      env: TOXENV=py34-dj111
+
+    - python: 3.4
+      env: TOXENV=py34-djmaster
+
+    - python: 3.5
+      env: TOXENV=py35-dj18
+
+    - python: 3.5
+      env: TOXENV=py35-dj19
+
+    - python: 3.5
+      env: TOXENV=py35-dj110
+
+    - python: 3.5
+      env: TOXENV=py35-dj111
+
+    - python: 3.5
+      env: TOXENV=py35-djmaster
+
+    - python: 3.6
+      env: TOXENV=py36-dj111
+
+    - python: 3.6
+      env: TOXENV=py36-djmaster
+
 install:
-  # Virtualenv < 14 is required to keep the Python 3.2 builds running.
-  - pip install tox "virtualenv<14"
+  - pip install tox codecov
 
 script:
-  - tox
+  - tox -e $TOXENV
+
 notifications:
   irc: "irc.freenode.org#django-compressor"
+
 after_success:
-  - pip install codecov
   - codecov
