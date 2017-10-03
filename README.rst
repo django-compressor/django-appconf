@@ -5,7 +5,7 @@ django-appconf
     :alt: Code Coverage
     :target: http://codecov.io/github/django-compressor/django-appconf?branch=develop
 
-.. image:: https://secure.travis-ci.org/django-compressor/django-appconf.png?branch=develop
+.. image:: https://secure.travis-ci.org/django-compressor/django-appconf.svg?branch=develop
     :alt: Build Status
     :target: http://travis-ci.org/django-compressor/django-appconf
 
