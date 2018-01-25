@@ -1,4 +1,5 @@
 import sys
+# flake8: noqa
 
 
 def import_attribute(import_path, exception_handler=None):
@@ -9,7 +10,7 @@ def import_attribute(import_path, exception_handler=None):
     module_name, object_name = import_path.rsplit('.', 1)
     try:
         module = import_module(module_name)
-    except:  # pragma: no cover # noqa = E722
+    except:  # pragma: no cover
         if callable(exception_handler):
             exctype, excvalue, tb = sys.exc_info()
             return exception_handler(import_path, exctype, excvalue, tb)
@@ -17,7 +18,7 @@ def import_attribute(import_path, exception_handler=None):
             raise
     try:
         return getattr(module, object_name)
-    except:  # pragma: no cover # noqa = E722
+    except:  # pragma: no cover
         if callable(exception_handler):
             exctype, excvalue, tb = sys.exc_info()
             return exception_handler(import_path, exctype, excvalue, tb)
