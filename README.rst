@@ -28,7 +28,9 @@ Overview
 Say you have an app called ``myapp`` with a few defaults, which you want
 to refer to in the app's code without repeating yourself all the time.
 ``appconf`` provides a simple class to implement those defaults. Simply add
-something like the following code somewhere in your app files::
+something like the following code somewhere in your app files:
+
+.. code-block:: python
 
     from appconf import AppConf
 
@@ -51,7 +53,9 @@ setting is located at. E.g. if your ``models.py`` with the ``AppConf`` class
 is in the ``myapp`` package, the prefix of the settings will be ``MYAPP``.
 
 You can override the default prefix by specifying a ``prefix`` attribute of
-an inner ``Meta`` class::
+an inner ``Meta`` class:
+
+.. code-block:: python
 
     from appconf import AppConf
 
@@ -66,13 +70,17 @@ an inner ``Meta`` class::
 
 The ``MyAppConf`` class will automatically look at Django's global settings
 to determine if you've overridden it. For example, adding this to your site's
-``settings.py`` would override ``SETTING_1`` of the above ``MyAppConf``::
+``settings.py`` would override ``SETTING_1`` of the above ``MyAppConf``:
+
+.. code-block:: python
 
     ACME_SETTING_1 = "uno"
 
 In case you want to use a different settings object instead of the default
 ``'django.conf.settings'``, set the ``holder`` attribute of the inner
-``Meta`` class to a dotted import path::
+``Meta`` class to a dotted import path:
+
+.. code-block:: python
 
     from appconf import AppConf
 
@@ -88,7 +96,9 @@ In case you want to use a different settings object instead of the default
 
 If you ship an ``AppConf`` class with your reusable Django app, it's
 recommended to put it in a ``conf.py`` file of your app package and
-import ``django.conf.settings`` in it, too::
+import ``django.conf.settings`` in it, too:
+
+.. code-block:: python
 
     from django.conf import settings
     from appconf import AppConf
@@ -101,7 +111,9 @@ import ``django.conf.settings`` in it, too::
 
 In the other files of your app you can easily make sure the settings
 are correctly loaded if you import Django's settings object from that
-module, e.g. in your app's ``views.py``::
+module, e.g. in your app's ``views.py``:
+
+.. code-block:: python
 
     from django.http import HttpResponse
     from myapp.conf import settings
