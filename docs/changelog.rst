@@ -6,8 +6,11 @@ Unreleased
 
 * Update tox configuration to match Django Python support map
 
-* Confirm support for Django 1.10, 1.11, 2.0 and 2.1
+* Drop support for Django 1.8, 1.9 and 1.10
 * Drop support for python 3.3
+
+* Confirm support for Django 1.11, 2.0 and 2.1
+* Confirm support for python 3.7
 
 1.0.2 (2016-04-19)
 ------------------
