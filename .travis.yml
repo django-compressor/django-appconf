@@ -4,9 +4,9 @@ language: python
 matrix:
   fast_finish: true
   allow_failures:
-    - env: TOXENV=py34-djmaster
     - env: TOXENV=py35-djmaster
     - env: TOXENV=py36-djmaster
+    - env: TOXENV=py37-djmaster
   include:
     # Python version is just for the look on travis.
     - python: 2.7
@@ -16,46 +16,22 @@ matrix:
       env: TOXENV=flake8-py34
 
     - python: 2.7
-      env: TOXENV=py27-dj18
-
-    - python: 2.7
-      env: TOXENV=py27-dj19
-
-    - python: 2.7
-      env: TOXENV=py27-dj110
-
-    - python: 2.7
       env: TOXENV=py27-dj111
-
-    - python: 3.3
-      env: TOXENV=py33-dj18
-
-    - python: 3.4
-      env: TOXENV=py34-dj18
-
-    - python: 3.4
-      env: TOXENV=py34-dj19
-
-    - python: 3.4
-      env: TOXENV=py34-dj110
 
     - python: 3.4
       env: TOXENV=py34-dj111
 
     - python: 3.4
-      env: TOXENV=py34-djmaster
-
-    - python: 3.5
-      env: TOXENV=py35-dj18
-
-    - python: 3.5
-      env: TOXENV=py35-dj19
-
-    - python: 3.5
-      env: TOXENV=py35-dj110
+      env: TOXENV=py34-dj20
 
     - python: 3.5
       env: TOXENV=py35-dj111
+
+    - python: 3.5
+      env: TOXENV=py35-dj20
+
+    - python: 3.5
+      env: TOXENV=py35-dj21
 
     - python: 3.5
       env: TOXENV=py35-djmaster
@@ -64,7 +40,33 @@ matrix:
       env: TOXENV=py36-dj111
 
     - python: 3.6
+      env: TOXENV=py36-dj20
+
+    - python: 3.6
+      env: TOXENV=py36-dj21
+
+    - python: 3.6
       env: TOXENV=py36-djmaster
+
+    - python: 3.7
+      env: TOXENV=py37-dj111
+      dist: xenial
+      sudo: true
+
+    - python: 3.7
+      env: TOXENV=py37-dj20
+      dist: xenial
+      sudo: true
+
+    - python: 3.7
+      env: TOXENV=py37-dj21
+      dist: xenial
+      sudo: true
+
+    - python: 3.7
+      env: TOXENV=py37-djmaster
+      dist: xenial
+      sudo: true
 
 install:
   - pip install tox codecov
