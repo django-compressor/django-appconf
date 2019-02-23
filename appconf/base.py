@@ -1,7 +1,8 @@
 import sys
 
+import six
+
 from django.core.exceptions import ImproperlyConfigured
-from django.utils import six
 
 from .utils import import_attribute
 
