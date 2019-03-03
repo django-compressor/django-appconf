@@ -1,8 +1,10 @@
 Changelog
 =========
 
-Unreleased
-------------------
+1.0.3 (2019-03-3)
+-----------------
+
+Packaging metadata updates:
 
 * Update tox configuration to match Django Python support map
 
