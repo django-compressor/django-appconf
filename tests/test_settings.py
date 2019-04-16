@@ -14,7 +14,27 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.admin',
+    'django.contrib.messages',
+    'django.contrib.sessions',
     'tests',
+]
+
+MIDDLEWARE = [
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+]
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
+    }
 ]
 
 if django.VERSION[:2] < (1, 6):
