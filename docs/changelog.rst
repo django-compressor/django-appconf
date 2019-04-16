@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.0.4 (unreleased)
+-----------------
+
+* Run tests for Django 2.2 and Python 3.5, 3.6 and 3.7
+
+* Add template and middleware settings in test_settings (required for Django 2.2)
+
 1.0.3 (2019-03-3)
 -----------------
 
