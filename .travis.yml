@@ -1,5 +1,6 @@
 sudo: false
 language: python
+dist: xenial
 
 matrix:
   fast_finish: true
@@ -33,6 +34,9 @@ matrix:
     - python: 3.5
       env: TOXENV=py35-dj21
 
+    - python: 3.5
+      env: TOXENV=py35-dj22
+
     - python: 3.6
       env: TOXENV=py36-dj111
 
@@ -43,27 +47,25 @@ matrix:
       env: TOXENV=py36-dj21
 
     - python: 3.6
+      env: TOXENV=py36-dj22
+
+    - python: 3.6
       env: TOXENV=py36-djmaster
 
     - python: 3.7
       env: TOXENV=py37-dj111
-      dist: xenial
-      sudo: true
 
     - python: 3.7
       env: TOXENV=py37-dj20
-      dist: xenial
-      sudo: true
 
     - python: 3.7
       env: TOXENV=py37-dj21
-      dist: xenial
-      sudo: true
+
+    - python: 3.7
+      env: TOXENV=py37-dj22
 
     - python: 3.7
       env: TOXENV=py37-djmaster
-      dist: xenial
-      sudo: true
 
 install:
   - pip install tox codecov
