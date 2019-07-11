@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
 ]
 
 TEMPLATES = [
