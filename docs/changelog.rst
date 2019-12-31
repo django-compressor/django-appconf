@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0 (unreleased)
+------------------
+
+* Improve the ``dir`` output of ``AppConf`` objects.
+
 1.0.4 (unreleased)
 -----------------
 
