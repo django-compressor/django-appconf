@@ -116,10 +116,10 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
             setattr(self, name, value)
 
     def __dir__(self):
-        super_dir = super(AppConf, self).__dir__()
-        if self._meta.proxy:
-            return sorted(set(super_dir + dir(self._meta.holder)))
-        return super_dir
+        from_dict = list(vars(self))
+        from_type = dir(type(self))
+        extras = dir(self._meta.holder) if self._meta.proxy else []
+        return sorted(set(from_dict + from_type + extras))
 
     # For instance access..
     @property
