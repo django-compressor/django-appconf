@@ -130,7 +130,7 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
                              (name, self._meta.holder_path))
 
     def __setattr__(self, name, value):
-        if name == name.upper():
+        if name.isupper():
             setattr(self._meta.holder,
                     self._meta.prefixed_name(name), value)
         object.__setattr__(self, name, value)
