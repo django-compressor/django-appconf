@@ -133,7 +133,7 @@ class AppConf(six.with_metaclass(AppConfMetaClass)):
         if name.isupper():
             setattr(self._meta.holder,
                     self._meta.prefixed_name(name), value)
-        object.__setattr__(self, name, value)
+        super(AppConf, self).__setattr__(name, value)
 
     def configure(self):
         """
