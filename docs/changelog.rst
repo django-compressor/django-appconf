@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0 (unreleased)
+------------------
+
+* Fix being able to set some non-upper attributes on the holder
+
 1.0.4 (unreleased)
 -----------------
 
