@@ -4,7 +4,7 @@ Changelog
 1.0.4 (unreleased)
 -----------------
 
-* Run tests for Django 2.2 and Python 3.5, 3.6 and 3.7
+* Run tests for Django 2.2 and 3.0 and Python 3.5, 3.6, 3.7 and 3.8
 
 * Add template and middleware settings in test_settings (required for Django 2.2)
 
