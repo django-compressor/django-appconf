@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.0.4 (unreleased)
------------------
+1.0.4 (2020-04-01)
+------------------
 
 * Run tests for Django 2.2 and 3.0 and Python 3.5, 3.6, 3.7 and 3.8
 
