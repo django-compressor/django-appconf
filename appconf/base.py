@@ -1,5 +1,7 @@
 import sys
 
+import six
+
 from django.core.exceptions import ImproperlyConfigured
 
 from .utils import import_attribute
@@ -104,7 +106,7 @@ class AppConfMetaClass(type):
         cls._meta.configured_data = obj.configure()
 
 
-class AppConf(metaclass=AppConfMetaClass):
+class AppConf(six.with_metaclass(AppConfMetaClass)):
     """
     An app setting object to be used for handling app setting defaults
     gracefully and providing a nice API for them.
