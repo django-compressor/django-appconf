@@ -1,6 +1,6 @@
 sudo: false
 language: python
-dist: xenial
+dist: bionic
 
 matrix:
   fast_finish: true
