@@ -29,7 +29,7 @@ setup(
     license='BSD',
     url='https://django-appconf.readthedocs.io/',
     packages=['appconf'],
-    install_requires=['django'],
+    install_requires=['django>=1.11,<4'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
