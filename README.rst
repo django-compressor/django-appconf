@@ -75,6 +75,10 @@ to determine if you've overridden it. For example, adding this to your site's
 .. code-block:: python
 
     ACME_SETTING_1 = "uno"
+    
+Since django-appconf completes Django's global settings with its default values 
+(like "one" above), the standard ``python manage.py diffsettings`` will show 
+these defaults automatically.
 
 In case you want to use a different settings object instead of the default
 ``'django.conf.settings'``, set the ``holder`` attribute of the inner
