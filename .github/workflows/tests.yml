@@ -25,4 +25,4 @@ jobs:
       - name: Run tox targets for ${{ matrix.python-version }}
         run: tox --py current
       - name: codecov
-        run: codecov
+        uses: codecov/codecov-action@v2
