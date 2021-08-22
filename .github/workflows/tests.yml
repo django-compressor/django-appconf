@@ -1,0 +1,28 @@
+name: Run Tests
+on: [push]
+jobs:
+  tests:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+        - 3.6
+        - 3.7
+        - 3.8
+        - 3.9
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip wheel setuptools
+          python -m pip install --upgrade tox tox-py coverage
+      - name: Run tox targets for ${{ matrix.python-version }}
+        run: tox --py current
+      - name: codecov
+        uses: codecov/codecov-action@v2
