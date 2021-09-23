@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.5 (2021-09-24)
+------------------
+
+* Adds testing against latest non-EOL Python and Django versions and updates
+  package metadata accordingly.
+
 1.0.4 (2020-04-01)
 ------------------
 
