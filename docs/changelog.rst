@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.6 (2023-11-20)
+------------------
+
+* Updated declared support and testing for Django 5.0 and 4.2, and Python 3.12.
+
 1.0.5 (2021-09-24)
 ------------------
 
