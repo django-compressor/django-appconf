@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 * Added support for Python 3.14 and Django 6.0
-* Dropped support for EOL Python 3.19.
+* Dropped support for EOL Python 3.9.
 
 1.1.0 (2025-02-13)
 ------------------
